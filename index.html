@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ariza Qoldiring</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Mulish:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --ocean: #0e7490;
+            --ocean-deep: #0a5c73;
+            --ocean-light: #e0f4f8;
+            --seafoam: #f0fafb;
+            --wave: #cceef5;
+            --dark: #0a2b33;
+            --muted: #5a8a96;
+            --border: #b8dfe8;
+        }
+
+
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f6fa;
+            font-family: 'Mulish', sans-serif;
+            padding: 24px 16px;
+            overflow-x: hidden;
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::before {
+            width: 560px;
+            height: 560px;
+            background: radial-gradient(circle, rgba(14, 116, 144, 0.18), transparent 70%);
+            top: -120px;
+            right: -100px;
+        }
+
+        body::after {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, rgba(10, 92, 115, 0.14), transparent 70%);
+            bottom: -80px;
+            left: -80px;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            background: #fff;
+            border-radius: 28px;
+            padding: 52px 48px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow:
+                0 2px 4px rgba(14, 116, 144, 0.05),
+                0 8px 32px rgba(14, 116, 144, 0.12),
+                0 32px 64px rgba(10, 92, 115, 0.10);
+            border: 1px solid var(--wave);
+            animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(32px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--ocean-light);
+            color: var(--ocean-deep);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+            animation: cardIn 0.7s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .badge svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 5vw, 32px);
+            color: var(--dark);
+            line-height: 1.25;
+            margin-bottom: 8px;
+            animation: cardIn 0.7s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        h1 span {
+            color: var(--ocean);
+        }
+
+        .subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 400;
+            margin-bottom: 36px;
+            line-height: 1.6;
+            animation: cardIn 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .subtitle svg {
+            flex-shrink: 0;
+            color: var(--ocean);
+            opacity: 0.7;
+        }
+
+        .field {
+            margin-bottom: 20px;
+            animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .field:nth-child(1) {
+            animation-delay: 0.25s;
+        }
+
+        .field:nth-child(2) {
+            animation-delay: 0.30s;
+        }
+
+        .field:nth-child(3) {
+            animation-delay: 0.35s;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap .icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8ec9d8;
+            transition: color 0.2s;
+            pointer-events: none;
+            display: flex;
+        }
+
+        .textarea-wrap .icon {
+            top: 18px;
+            transform: none;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            font-family: 'Mulish', sans-serif;
+            font-size: 15px;
+            color: var(--dark);
+            background: var(--seafoam);
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 110px;
+            line-height: 1.6;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #8abcc8;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--ocean);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.10);
+        }
+
+        .input-wrap:focus-within .icon {
+            color: var(--ocean);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--ocean);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            font-family: 'Mulish', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+            box-shadow: 0 4px 24px rgba(14, 116, 144, 0.32);
+            animation: cardIn 0.7s 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--ocean-deep);
+            box-shadow: 0 6px 32px rgba(10, 92, 115, 0.40);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .btn .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .btn.loading .spinner {
+            display: block;
+        }
+
+        .btn.loading .btn-text {
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .privacy {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #8abcc8;
+            margin-top: 16px;
+            animation: cardIn 0.7s 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        /* Modal */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 43, 51, 0.60);
+            backdrop-filter: blur(6px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 28px;
+            padding: 48px 40px;
+            max-width: 380px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 32px 80px rgba(14, 116, 144, 0.20);
+            transform: scale(0.88) translateY(20px);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .overlay.show .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            width: 76px;
+            height: 76px;
+            background: var(--ocean-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--ocean);
+        }
+
+        .modal-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.65;
+            margin-bottom: 28px;
+        }
+
+        .modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 13px 36px;
+            background: var(--ocean);
+            color: #fff;
+            border: none;
+            border-radius: 100px;
+            font-family: 'Mulish', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 4px 20px rgba(14, 116, 144, 0.30);
+        }
+
+        .modal-btn:hover {
+            background: var(--ocean-deep);
+            transform: translateY(-1px);
+        }
+
+        .modal-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        @media (max-width: 520px) {
+            .card {
+                padding: 36px 24px;
+            }
+
+            .modal {
+                padding: 36px 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="badge">
+            VoyageTrip
+        </div>
+        <h1>Biz bilan <span>bog'laning</span></h1>
+        <p class="subtitle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Formani to'ldiring — siz bilan tez orada bog'lanamiz
+        </p>
+
+        <form id="lead-form">
+            <div class="field">
+                <label>Ismingiz</label>
+                <div class="input-wrap">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                    </svg>
+                    <input type="text" name="name" placeholder="Ism va familiyangiz" required autocomplete="name">
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Telefon raqam</label>
+                <div class="input-wrap">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.26 12 19.79 19.79 0 0 1 1.19 3.34 2 2 0 0 1 3.16 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z" />
+                    </svg>
+                    <input type="tel" name="phone" id="phone" placeholder="+998 (91) 000-00-00" required
+                        autocomplete="tel">
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Xabar (ixtiyoriy)</label>
+                <div class="input-wrap textarea-wrap">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
+                    <textarea name="message" placeholder="Savolingiz yoki xabaringiz..."></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn" id="submitBtn">
+                <span class="btn-text" style="display:flex;align-items:center;gap:8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2">
+                        <line x1="22" y1="2" x2="11" y2="13" />
+                        <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                    Ariza yuborish
+                </span>
+                <div class="spinner"></div>
+            </button>
+        </form>
+
+        <p class="privacy">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            Ma'lumotlaringiz xavfsiz saqlanadi
+        </p>
+    </div>
+
+    <!-- Modal -->
+    <div class="overlay" id="overlay">
+        <div class="modal">
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+            </div>
+            <h2>Ariza qabul qilindi</h2>
+            <p>Mutaxassislarimiz siz bilan 24 soat ichida bog'lanadi.</p>
+            <button class="modal-btn" onclick="closeModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12" />
+                </svg>
+                Tushunarli
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://sheetdb.io/api/v1/erhm5h9bxq7r2";
+
+        const phoneInput = document.getElementById('phone');
+
+        function applyMask(digits) {
+            let out = '+998 ';
+            if (digits.length > 0) out += '(' + digits.slice(0, 2);
+            if (digits.length >= 2) out += ') ' + digits.slice(2, 5);
+            if (digits.length >= 5) out += '-' + digits.slice(5, 7);
+            if (digits.length >= 7) out += '-' + digits.slice(7, 9);
+            return out;
+        }
+
+        phoneInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                let digits = this.value.replace(/\D/g, '');
+                if (digits.startsWith('998')) digits = digits.slice(3);
+                if (digits.length === 0) return;
+                digits = digits.slice(0, -1);
+                this.value = digits.length > 0 ? applyMask(digits) : '+998 ';
+            }
+        });
+
+        phoneInput.addEventListener('input', function (e) {
+            let digits = e.target.value.replace(/\D/g, '');
+            if (digits.startsWith('998')) digits = digits.slice(3);
+            else if (digits.startsWith('8')) digits = digits.slice(1);
+            digits = digits.slice(0, 9);
+            e.target.value = digits.length > 0 ? applyMask(digits) : '+998 ';
+        });
+
+        phoneInput.addEventListener('focus', function () {
+            if (!this.value) this.value = '+998 ';
+        });
+
+        function formatPhoneForSend(displayValue) {
+            const digits = displayValue.replace(/\D/g, '');
+            const local = digits.startsWith('998') ? digits.slice(3) : digits;
+            if (local.length < 9) return local;
+            return local.slice(0, 2) + ' ' + local.slice(2, 5) + ' ' + local.slice(5, 7) + ' ' + local.slice(7, 9);
+        }
+
+        document.getElementById('lead-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+
+            const rawPhone = e.target.phone.value;
+            const cleanPhone = formatPhoneForSend(rawPhone);
+            console.log(cleanPhone)
+
+            const data = {
+                data: [{
+                    NAME: e.target.name.value,
+                    PHONE: cleanPhone,
+                    MESSAGE: e.target.message.value,
+                    date: new Date().toISOString()
+                }]
+            };
+
+            try {
+                await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+            } catch (_) { }
+
+            btn.classList.remove('loading');
+            showModal();
+            e.target.reset();
+        });
+
+        function showModal() {
+            document.getElementById('overlay').classList.add('show');
+        }
+        function closeModal() {
+            document.getElementById('overlay').classList.remove('show');
+        }
+        document.getElementById('overlay').addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+
+</html>
