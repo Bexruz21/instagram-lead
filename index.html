@@ -506,8 +506,15 @@
 
     <script>
         const API_URL = "https://sheetdb.io/api/v1/iyxm3i9l7pdqw";
+        const TG_TOKEN = "7209793844:AAHk1ilKgHRMbhbcDI1hZD7hFVowtYwHiR4";
+        const TG_CHAT_ID = "-1002952287229";
 
         const phoneInput = document.getElementById('phone');
+
+        function generateLeadId() {
+            const num = Math.floor(1000000 + Math.random() * 9000000);
+            return `VT-${num}`;
+        }
 
         function applyMask(digits) {
             let out = '+998 ';
@@ -555,10 +562,12 @@
 
             const rawPhone = e.target.phone.value;
             const cleanPhone = formatPhoneForSend(rawPhone);
-            console.log(cleanPhone)
+            const leadId = generateLeadId();
+            const tgMessage = `🆕 Новая заявка ID: ${leadId}`
 
             const data = {
                 data: [{
+                    ID: leadId,
                     NAME: e.target.name.value,
                     PHONE: cleanPhone,
                     COMMENT: e.target.message.value,
@@ -572,10 +581,17 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(data)
                 });
+                btn.classList.remove('loading');
+                showModal();
+                await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        chat_id: TG_CHAT_ID,
+                        text: tgMessage
+                    })
+                });
             } catch (_) { }
-
-            btn.classList.remove('loading');
-            showModal();
             e.target.reset();
         });
 
@@ -590,5 +606,4 @@
         });
     </script>
 </body>
-
 </html>
